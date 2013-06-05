@@ -27,10 +27,8 @@
 {
     [super viewDidLoad];
     
-    _PTR = [[PullToRefresh alloc] init];
-    
+    _PTR = [[PullToRefresh alloc] init];    
     _PTR.delegate = self;
-    
     [_PTR initPTR:self.view];
 }
 
@@ -65,6 +63,8 @@
 }
 
 
+//The 3 methods necessary for PullToRefresh.
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView  {
 	
     [_PTR PTRdidScroll:scrollView];
@@ -72,12 +72,16 @@
 
 - (void)Refresh {
     NSLog(@"Refreshing...");
+    
+    //Replace the NSTimer by the API call to get the refreshed data. When done, call "doneRefreshing"
     [NSTimer scheduledTimerWithTimeInterval:7 target:self selector:@selector(doneRefreshing) userInfo:nil repeats:NO];
 }
 
 - (void)doneRefreshing  {
     NSLog(@"Done Refreshing");
     [_PTR isDoneRefreshing:YES];
+    
+    //Update the tableview here with the new data.
 }
 
 
