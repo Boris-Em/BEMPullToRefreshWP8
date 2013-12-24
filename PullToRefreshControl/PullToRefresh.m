@@ -17,7 +17,7 @@ int xHeight;
 
 - (void)PTRdidScroll:(UIScrollView *)scrollView {
     
-    _PTR.frame = CGRectMake(0, scrollView.contentOffset.y, [[UIScreen mainScreen]bounds].size.height, scrollView.contentOffset.y * (-1));  
+    self.PTR.frame = CGRectMake(0, scrollView.contentOffset.y, [[UIScreen mainScreen]bounds].size.height, scrollView.contentOffset.y * (-1));  
     
     if (([[UIApplication sharedApplication] statusBarOrientation] == 0) || ([[UIApplication sharedApplication] statusBarOrientation] == 1))
     {
@@ -29,32 +29,26 @@ int xHeight;
             
             [delegate Refresh];
             
-            stopRefresh = NO;
+            self.stopRefresh = NO;
         }
     }
     
-    if (([UIDevice currentDevice].orientation == 3) || ([UIDevice currentDevice].orientation == 4))
+    else if (([UIDevice currentDevice].orientation == 3) || ([UIDevice currentDevice].orientation == 4))
     {
         xWidth = [[UIScreen mainScreen] bounds].size.height;
         xHeight = [[UIScreen mainScreen] bounds].size.width;
         
-        if (scrollView.contentOffset.y < -80 && scrollView.isTracking == NO && isRefreshing == NO)   {//In landscape mode, the treshold to start the refresh should be a little bit lower.
+        if (scrollView.contentOffset.y < -80 && scrollView.isTracking == NO && isRefreshing == NO)   {//In landscape mode, the threshold to trigger the refresh should be a little bit lower.
             [self triggeredRefresh:scrollView];
             
             [delegate Refresh];
             
-            stopRefresh = NO;
+            self.stopRefresh = NO;
         }
     }                
 }
 
 - (void)triggeredRefresh:(UIScrollView *)scrollView   {
-    
-    _dot1.hidden = NO;
-    _dot2.hidden = NO;
-    _dot3.hidden = NO;
-    _dot4.hidden = NO;
-    _dot5.hidden = NO;
     
     isRefreshing = YES;
     
@@ -63,147 +57,89 @@ int xHeight;
     scrollView.contentInset = UIEdgeInsetsMake(10, 0.0f, 0.0f, 0.0f);
     [UIView commitAnimations];
     
-    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-        _dot1.frame = CGRectMake(xWidth/4, 0, 3, 3);
-    } completion:^(BOOL finished){
-        [UIView animateWithDuration:1.9f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-            _dot1.frame = CGRectMake(xWidth/1.333, 0, 3, 3);
-        } completion:^(BOOL finished){
-            [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-                _dot1.frame = CGRectMake(xWidth, 0, 3, 3);
-            } completion:^(BOOL finished){
-                _dot1.frame = CGRectMake(-3, 0, 3, 3);
-                _dot1.hidden = YES;
-            }];
-        }];
-    }];
     
-    
-        [UIView animateWithDuration:0.3f delay:0.2 options:UIViewAnimationOptionCurveLinear animations:^{
-            _dot2.frame = CGRectMake(xWidth/4, 0, 3, 3);
-        } completion:^(BOOL finished){            
-            [UIView animateWithDuration:1.9f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-                _dot2.frame = CGRectMake(xWidth/1.333, 0, 3, 3);
-            } completion:^(BOOL finished){
-                [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-                    _dot2.frame = CGRectMake(xWidth, 0, 3, 3);
+    for (int i = 0; i < self.PTR.subviews.count; i++) {
+
+        for (UIView *dot in self.PTR.subviews) {
+            
+            dot.hidden = NO;
+            
+            if (dot.tag == i + 1) {
+                [UIView animateWithDuration:0.3f delay:i*0.2 options:UIViewAnimationOptionCurveLinear animations:^{
+                    dot.frame = CGRectMake(xWidth/4, 0, 3, 3);
                 } completion:^(BOOL finished){
-                    _dot2.frame = CGRectMake(-3, 0, 3, 3);
-                    _dot2.hidden = YES;
+                    [UIView animateWithDuration:1.9f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+                        dot.frame = CGRectMake(xWidth/1.333, 0, 3, 3);
+                    } completion:^(BOOL finished){
+                        [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+                            dot.frame = CGRectMake(xWidth, 0, 3, 3);
+                        } completion:^(BOOL finished){
+                            dot.frame = CGRectMake(-3, 0, 3, 3);
+                            dot.hidden = YES;
+                            
+                            if (dot.tag == self.PTR.subviews.count) {
+                                
+                                if(self.stopRefresh == NO)  {
+
+                                    if (([[UIApplication sharedApplication] statusBarOrientation] == 0) || ([[UIApplication sharedApplication] statusBarOrientation] == 1))
+                                    {
+                                        xWidth = [[UIScreen mainScreen] bounds].size.width;
+                                        xHeight = [[UIScreen mainScreen] bounds].size.height;
+                                    }
+                                    
+                                    if (([UIDevice currentDevice].orientation == 3) || ([UIDevice currentDevice].orientation == 4))
+                                    {
+                                        xWidth = [[UIScreen mainScreen] bounds].size.height;
+                                        xHeight = [[UIScreen mainScreen] bounds].size.width;
+                                    }
+                                    
+                                    [self triggeredRefresh:scrollView];
+                                }
+                                
+                                else    {
+                                    isRefreshing = NO;
+                                    [UIView beginAnimations:nil context:NULL];
+                                    [UIView setAnimationDuration:0.2];
+                                    scrollView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f);
+                                    [UIView commitAnimations];
+                                }
+                            }
+                        }];
+                    }];
                 }];
-            }];
-        }];
-    
-    [UIView animateWithDuration:0.3f delay:0.4 options:UIViewAnimationOptionCurveLinear animations:^{
-        _dot3.frame = CGRectMake(xWidth/4, 0, 3, 3);
-    } completion:^(BOOL finished){
-        [UIView animateWithDuration:1.9f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-            _dot3.frame = CGRectMake(xWidth/1.333, 0, 3, 3);
-        } completion:^(BOOL finished){
-            [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-                _dot3.frame = CGRectMake(xWidth, 0, 3, 3);
-            } completion:^(BOOL finished){
-                _dot3.frame = CGRectMake(-3, 0, 3, 3);
-                _dot3.hidden = YES;
-            }];
-        }];
-    }];
-    
-    [UIView animateWithDuration:0.3f delay:0.6 options:UIViewAnimationOptionCurveLinear animations:^{
-        _dot4.frame = CGRectMake(xWidth/4, 0, 3, 3);
-    } completion:^(BOOL finished){
-        [UIView animateWithDuration:1.9f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-            _dot4.frame = CGRectMake(xWidth/1.333, 0, 3, 3);
-        } completion:^(BOOL finished){
-            [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-                _dot4.frame = CGRectMake(xWidth, 0, 3, 3);
-            } completion:^(BOOL finished){
-                _dot4.frame = CGRectMake(-3, 0, 3, 3);
-                _dot4.hidden = YES;
-            }];
-        }];
-    }];
-    
-    [UIView animateWithDuration:0.3f delay:0.8 options:UIViewAnimationOptionCurveLinear animations:^{
-        _dot5.frame = CGRectMake(xWidth/4, 0, 3, 3);
-    } completion:^(BOOL finished){
-        [UIView animateWithDuration:1.9f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-            _dot5.frame = CGRectMake(xWidth/1.333, 0, 3, 3);
-        } completion:^(BOOL finished){
-            [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-                _dot5.frame = CGRectMake(xWidth, 0, 3, 3);
-            } completion:^(BOOL finished){
-                _dot5.frame = CGRectMake(-3, 0, 3, 3);
-                _dot5.hidden = YES;
-                
-                if(stopRefresh == NO)  {                    
-                    
-                    if (([[UIApplication sharedApplication] statusBarOrientation] == 0) || ([[UIApplication sharedApplication] statusBarOrientation] == 1))
-                    {
-                        xWidth = [[UIScreen mainScreen] bounds].size.width;
-                        xHeight = [[UIScreen mainScreen] bounds].size.height;
-                    }
-                    
-                    if (([UIDevice currentDevice].orientation == 3) || ([UIDevice currentDevice].orientation == 4))
-                    {
-                        xWidth = [[UIScreen mainScreen] bounds].size.height;
-                        xHeight = [[UIScreen mainScreen] bounds].size.width;        
-                    }
-                    
-                    [self triggeredRefresh:scrollView];
-                }
-                
-                else    {
-                    isRefreshing = NO;
-                    [UIView beginAnimations:nil context:NULL];
-                    [UIView setAnimationDuration:0.2];
-                    scrollView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f);
-                    [UIView commitAnimations];
-                }
-                
-            }];
-        }];
-    }];
-
+            }
+        }
+    }
 }
 
-- (void)initPTR:(UIView *)view {    
+- (void)initPTR:(UIView *)view withNumberOfDots:(int)numberOfDots{
+    
+    if (numberOfDots <= 0) {
+        NSLog(@"ERROR - numberOfDots should be at least 1.");
+    }
+    
+    else    {
         
-    _PTR = [[UIView alloc] init];
-    _PTR.backgroundColor = [UIColor blackColor];
-    [view addSubview:_PTR];
+        self.PTR = [[UIView alloc] init];
+        self.PTR.backgroundColor = [UIColor blackColor];
+        [view addSubview:self.PTR];
     
-    _dot1 = [[UIView alloc] initWithFrame: CGRectMake(-3, 0, 3, 3)];
-    _dot1.backgroundColor = [UIColor lightGrayColor];
-    
-    [_PTR addSubview: _dot1];
-    
-    _dot2 = [[UIView alloc] initWithFrame: CGRectMake(-3, 0, 3, 3)];
-    _dot2.backgroundColor = [UIColor lightGrayColor];
-    [_PTR addSubview: _dot2];
-    
-    _dot3 = [[UIView alloc] initWithFrame: CGRectMake(-3, 0, 3, 3)];
-    _dot3.backgroundColor = [UIColor lightGrayColor];
-    [_PTR addSubview: _dot3];
-    
-    _dot4 = [[UIView alloc] initWithFrame: CGRectMake(-3, 0, 3, 3)];
-    _dot4.backgroundColor = [UIColor lightGrayColor];
-    [_PTR addSubview: _dot4];
-    
-    _dot5 = [[UIView alloc] initWithFrame: CGRectMake(-3, 0, 3, 3)];
-    _dot5.backgroundColor = [UIColor lightGrayColor];
-    [_PTR addSubview: _dot5];
-    
-    _dot1.hidden = YES;
-    _dot2.hidden = YES;
-    _dot3.hidden = YES;
-    _dot4.hidden = YES;
-    _dot5.hidden = YES;
+        for (int i = 0; i < numberOfDots; i++) {
+            UIView *dot = [[UIView alloc] initWithFrame:CGRectMake(-3, 0, 3, 3)];
+            dot.tag = i+1;
+        
+            if (self.dotColor) {
+                dot.backgroundColor = self.dotColor;
+            }
+        
+            else   {
+                dot.backgroundColor = [UIColor lightGrayColor];
+            }
+        
+            dot.hidden = YES;
+            [self.PTR addSubview: dot];
+        }
+    }
 }
-
-- (void)isDoneRefreshing:(BOOL)isDoneRefreshing     {
-    stopRefresh = YES;
-}
-
 
 @end

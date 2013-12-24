@@ -27,9 +27,10 @@
 {
     [super viewDidLoad];
     
-    _PTR = [[PullToRefresh alloc] init];    
-    _PTR.delegate = self;
-    [_PTR initPTR:self.view];
+    self.PTR = [[PullToRefresh alloc] init];    
+    self.PTR.delegate = self;
+    self.PTR.dotColor = [UIColor lightGrayColor]; //Optional, default color is lightGrayColor
+    [self.PTR initPTR:self.view withNumberOfDots:5];
 }
 
 - (void)didReceiveMemoryWarning
@@ -67,10 +68,11 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView  {
 	
-    [_PTR PTRdidScroll:scrollView];
+    [self.PTR PTRdidScroll:scrollView];
 }
 
 - (void)Refresh {
+    
     NSLog(@"Refreshing...");
     
     //Replace the NSTimer by the API call to get the refreshed data. When done, call "doneRefreshing"
@@ -78,10 +80,20 @@
 }
 
 - (void)doneRefreshing  {
+    
     NSLog(@"Done Refreshing");
-    [_PTR isDoneRefreshing:YES];
+    
+    self.PTR.stopRefresh = YES;//Let the control that it should stop being displayed
     
     //Update the tableview here with the new data.
+}
+
+
+//Hide status bar for iOS 7
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
 }
 
 
