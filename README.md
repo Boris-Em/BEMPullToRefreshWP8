@@ -19,11 +19,41 @@ Any contribution is more than welcome! You can contribute through pull requests 
 The iOS Sample App included with this project demonstrates how to correctly setup and use BEMPullToRefreshWP8. You can refer to the sample app for an understanding of how to use and setup BEMPullToRefreshWP8.
 
 ### Installation
-To install BEMPullToRefreshWP8 simply drag and drop the *PullToRefreshControl* folder into you Xcode project. When you do so, check the "*Copy items into destination group's folder*" box.
+To install BEMPullToRefreshWP8 simply drag and drop the *PullToRefreshControl* folder into your Xcode project. When you do so, check the "*Copy items into destination group's folder*" box.
 
 ### Setup
 To setup BEMPullToRefreshWP8, follow the steps below.
 
-1. Import `"PullToRefresh.h"` to the header of your view controller:
+1. Import `"BEMPullToRefresh.h"` to the header of your TableViewController:
 
-         #import "PullToRefresh.h"
+         #import "BEMPullToRefresh.h"
+
+2. Implement the `BEMPullToRefreshDelegate` to the same TableViewController:
+
+         @interface YourViewController : UITableViewController <BEMPullToRefreshDelegate>
+
+3. Add the following code to your implementation (usually the `viewDidLoad` method).
+         
+         BEMPullToRefresh *myPTR = [[BEMPullToRefresh alloc] initWithNumberOfDots:5];
+         myPTR.delegate = self;
+         [self.view addSubview:myPTR];
+
+4. Call the method `viewDidScroll:` in `scrollViewDidScroll:`to inform the control when the view is scrolled by the user.
+
+         - (void)scrollViewDidScroll:(UIScrollView *)scrollView  {
+            [self.myPTR viewDidScroll:scrollView];
+         }
+         
+5. Implement the requiered method `Refresh`
+
+         - (void)Refresh {
+                  // Perform here the required actions to refresh the data (call a JSON API for example).
+                  // Once the data has been updated, call the method isDoneRefreshing:
+                  [self.myPTR isDoneRefreshing];
+         }
+
+### Properties
+
+The `dotColor` property controls the color of the dots.
+
+The `thresholdToTrigger` property controls how far the user needs to pull down the tableview for the refresh to be triggered. A value close to 0 will make it really easy to be triggered while a value above 100 will make it really hard.
