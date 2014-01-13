@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PullToRefresh.h"
+#import "BEMPullToRefresh.h"
 
-@interface TableViewController : UITableViewController <PTRdelegate>
+@interface TableViewController : UITableViewController <BEMPullToRefreshDelegate>
 
-@property(strong, nonatomic)PullToRefresh * PTR;
+@property(strong, nonatomic) BEMPullToRefresh * myPTR;
 
 @end

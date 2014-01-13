@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		C3210F8B175F153200D48506 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3210F8A175F153200D48506 /* TableViewController.m */; };
-		C35A7DE5175E6690005292B8 /* PullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = C35A7DE4175E6690005292B8 /* PullToRefresh.m */; };
 		C362BB84175E606E00C93E33 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C362BB83175E606E00C93E33 /* UIKit.framework */; };
 		C362BB86175E606E00C93E33 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C362BB85175E606E00C93E33 /* Foundation.framework */; };
 		C362BB88175E606E00C93E33 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C362BB87175E606E00C93E33 /* CoreGraphics.framework */; };
@@ -19,13 +18,12 @@
 		C362BB98175E606E00C93E33 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C362BB97175E606E00C93E33 /* Default@2x.png */; };
 		C362BB9A175E606E00C93E33 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C362BB99175E606E00C93E33 /* Default-568h@2x.png */; };
 		C362BB9D175E606E00C93E33 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C362BB9B175E606E00C93E33 /* MainStoryboard.storyboard */; };
+		C3BFAA0418836AD4006BE190 /* BEMPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BFAA0318836AD4006BE190 /* BEMPullToRefresh.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C3210F89175F153200D48506 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
 		C3210F8A175F153200D48506 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
-		C35A7DE3175E6690005292B8 /* PullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullToRefresh.h; sourceTree = "<group>"; };
-		C35A7DE4175E6690005292B8 /* PullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefresh.m; sourceTree = "<group>"; };
 		C362BB80175E606E00C93E33 /* PullToRefresh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PullToRefresh.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C362BB83175E606E00C93E33 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C362BB85175E606E00C93E33 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -40,6 +38,8 @@
 		C362BB97175E606E00C93E33 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		C362BB99175E606E00C93E33 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C362BB9C175E606E00C93E33 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		C3BFAA0218836AD4006BE190 /* BEMPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BEMPullToRefresh.h; path = ../../PullToRefreshControl/BEMPullToRefresh.h; sourceTree = "<group>"; };
+		C3BFAA0318836AD4006BE190 /* BEMPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BEMPullToRefresh.m; path = ../../PullToRefreshControl/BEMPullToRefresh.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,8 +91,8 @@
 				C362BB9B175E606E00C93E33 /* MainStoryboard.storyboard */,
 				C3210F89175F153200D48506 /* TableViewController.h */,
 				C3210F8A175F153200D48506 /* TableViewController.m */,
-				C35A7DE3175E6690005292B8 /* PullToRefresh.h */,
-				C35A7DE4175E6690005292B8 /* PullToRefresh.m */,
+				C3BFAA0218836AD4006BE190 /* BEMPullToRefresh.h */,
+				C3BFAA0318836AD4006BE190 /* BEMPullToRefresh.m */,
 				C362BB8A175E606E00C93E33 /* Supporting Files */,
 			);
 			path = PullToRefresh;
@@ -178,9 +178,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3BFAA0418836AD4006BE190 /* BEMPullToRefresh.m in Sources */,
 				C362BB90175E606E00C93E33 /* main.m in Sources */,
 				C362BB94175E606E00C93E33 /* AppDelegate.m in Sources */,
-				C35A7DE5175E6690005292B8 /* PullToRefresh.m in Sources */,
 				C3210F8B175F153200D48506 /* TableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

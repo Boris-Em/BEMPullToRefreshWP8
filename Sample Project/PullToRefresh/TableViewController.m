@@ -14,6 +14,12 @@
 
 @implementation TableViewController
 
+//Hide status bar for iOS 7
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -27,10 +33,15 @@
 {
     [super viewDidLoad];
     
-    self.PTR = [[PullToRefresh alloc] init];    
-    self.PTR.delegate = self;
-    self.PTR.dotColor = [UIColor lightGrayColor]; //Optional, default color is lightGrayColor
-    [self.PTR initPTR:self.view withNumberOfDots:5];
+        //Initialization of the control
+    self.myPTR = [[BEMPullToRefresh alloc] initWithNumberOfDots:5];
+    self.myPTR.delegate = self;
+    [self.view addSubview:self.myPTR];
+    
+        //Optional properties
+    self.myPTR.dotColor = [UIColor lightGrayColor];
+    self.myPTR.thresholdToTrigger = 90;
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,37 +75,20 @@
 }
 
 
-//The 3 methods necessary for PullToRefresh.
+#pragma mark - BEMPullToRefresh
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView  {
 	
-    [self.PTR PTRdidScroll:scrollView];
+    [self.myPTR viewDidScroll:scrollView];
 }
 
 - (void)Refresh {
     
     NSLog(@"Refreshing...");
     
-    //Replace the NSTimer by the API call to get the refreshed data. When done, call "doneRefreshing"
-    [NSTimer scheduledTimerWithTimeInterval:7 target:self selector:@selector(doneRefreshing) userInfo:nil repeats:NO];
+    // Perform here the necessary to refresh the data (calling a JSON API for example). Once the data has been refreshed and display, call isDoneRefreshing.
+    // For the example here, we used an NSTimer.
+    [NSTimer scheduledTimerWithTimeInterval:7 target:self.myPTR selector:@selector(isDoneRefreshing) userInfo:nil repeats:NO];
 }
-
-- (void)doneRefreshing  {
-    
-    NSLog(@"Done Refreshing");
-    
-    self.PTR.stopRefresh = YES;//Let the control that it should stop being displayed
-    
-    //Update the tableview here with the new data.
-}
-
-
-//Hide status bar for iOS 7
-
-- (BOOL)prefersStatusBarHidden
-{
-    return YES;
-}
-
 
 @end

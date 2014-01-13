@@ -1,4 +1,4 @@
-PullToRefreshWP8
+# BEMSimpleLineGraph
 ================
 
 Simple Pull to Refresh Control for iOS. Inspired by WP8.
