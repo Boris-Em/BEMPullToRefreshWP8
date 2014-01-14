@@ -57,3 +57,5 @@ To setup BEMPullToRefreshWP8, follow the steps below.
 The `dotColor` property controls the color of the dots.
 
 The `thresholdToTrigger` property controls how far the user needs to pull down the tableview for the refresh to be triggered. A value close to 0 will make it really easy to be triggered while a value above 100 will make it really hard.
+
+The `animationSpeed` property controls the speed of the dots during the animation. The default value is 1. A value between 0 and 1 will speed up the animation while a value superior to 1 will slow it down.
