@@ -40,6 +40,7 @@
         isRefreshing = NO;
         _thresholdToTrigger = 100;
         _dotColor = [UIColor lightGrayColor];
+        _animationSpeed = 1;
         
         
         if (numberOfDots <= 0) {
@@ -110,13 +111,13 @@
             dot.backgroundColor = self.dotColor;
             
             if (dot.tag == i + 1) {
-                [UIView animateWithDuration:0.3f delay:i*0.2 options:UIViewAnimationOptionCurveLinear animations:^{
+                [UIView animateWithDuration:(0.3f * self.animationSpeed) delay:(i * 0.2 * self.animationSpeed) options:UIViewAnimationOptionCurveLinear animations:^{
                     dot.frame = CGRectMake(screenWidth/4, 0, 3, 3);
                 } completion:^(BOOL finished){
-                    [UIView animateWithDuration:1.9f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+                    [UIView animateWithDuration:(1.9f* self.animationSpeed) delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
                         dot.frame = CGRectMake(screenWidth/1.333, 0, 3, 3);
                     } completion:^(BOOL finished){
-                        [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+                        [UIView animateWithDuration:(0.3f* self.animationSpeed) delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
                             dot.frame = CGRectMake(screenWidth, 0, 3, 3);
                         } completion:^(BOOL finished){
                             dot.frame = CGRectMake(-3, 0, 3, 3);

@@ -61,4 +61,7 @@
 /// The threshold to detect if the refresh process should be triggered. A value close to 0 means that the user needs to bearly pull the tableView to trigger the refreshing process. A value superior at 100 makes it really hard to trigger. The default value is 100.
 @property (nonatomic) float thresholdToTrigger;
 
+/// The speed of the dots during the animation. Default value is 1, a value between 0 and 1 will speed up the animation while a value superior to 1 will slow it down.
+@property (nonatomic) float animationSpeed;
+
 @end

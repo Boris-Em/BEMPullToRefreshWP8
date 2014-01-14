@@ -41,6 +41,7 @@
         //Optional properties
     self.myPTR.dotColor = [UIColor lightGrayColor];
     self.myPTR.thresholdToTrigger = 90;
+    self.myPTR.animationSpeed = 1;
     
 }
 
@@ -75,7 +76,7 @@
 }
 
 
-#pragma mark - BEMPullToRefresh
+#pragma mark - BEMPullToRefresh Methods
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView  {
 	
