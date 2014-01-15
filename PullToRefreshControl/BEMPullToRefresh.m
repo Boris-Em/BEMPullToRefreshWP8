@@ -68,8 +68,8 @@
     
     if (([[UIApplication sharedApplication] statusBarOrientation] == 0) || ([[UIApplication sharedApplication] statusBarOrientation] == 1))
     {
-        screenWidth = [[UIScreen mainScreen] bounds].size.width;
-        screenHeight = [[UIScreen mainScreen] bounds].size.height;
+        screenWidth = self.superview.frame.size.width;
+        screenHeight = self.superview.frame.size.height;
         
         if (scrollView.contentOffset.y < (-self.thresholdToTrigger) && scrollView.isTracking == NO && isRefreshing == NO)   {
             [self triggeredRefresh:scrollView];
@@ -81,8 +81,8 @@
     
     else if (([UIDevice currentDevice].orientation == 3) || ([UIDevice currentDevice].orientation == 4))
     {
-        screenWidth = [[UIScreen mainScreen] bounds].size.height;
-        screenHeight = [[UIScreen mainScreen] bounds].size.width;
+        screenWidth = self.superview.frame.size.height;
+        screenHeight = self.superview.frame.size.width;
         
         if (scrollView.contentOffset.y < (-self.thresholdToTrigger - 20) && scrollView.isTracking == NO && isRefreshing == NO)   {//In landscape mode, the threshold to trigger the refresh should be a little bit lower.
             [self triggeredRefresh:scrollView];
@@ -129,14 +129,14 @@
                                     
                                     if (([[UIApplication sharedApplication] statusBarOrientation] == 0) || ([[UIApplication sharedApplication] statusBarOrientation] == 1))
                                     {
-                                        screenWidth = [[UIScreen mainScreen] bounds].size.width;
-                                        screenHeight = [[UIScreen mainScreen] bounds].size.height;
+                                        screenWidth = self.superview.frame.size.width;
+                                        screenHeight = self.superview.frame.size.height;
                                     }
                                     
                                     if (([UIDevice currentDevice].orientation == 3) || ([UIDevice currentDevice].orientation == 4))
                                     {
-                                        screenWidth = [[UIScreen mainScreen] bounds].size.height;
-                                        screenHeight = [[UIScreen mainScreen] bounds].size.width;
+                                        screenWidth = self.superview.frame.size.height;
+                                        screenHeight = self.superview.frame.size.width;
                                     }
                                     
                                     [self triggeredRefresh:scrollView];
