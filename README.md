@@ -1,5 +1,7 @@
 # BEMPullToRefreshWP8
 
+[![Build Status](https://travis-ci.org/Boris-Em/BEMPullToRefreshWP8.svg?branch=master)](https://travis-ci.org/Boris-Em/BEMPullToRefreshWP8)
+
 <p align="center"><img src="http://img19.imageshack.us/img19/6028/pulltorefresh.gif"/></p>
 
 <p align="center">Simple Pull to Refresh Control for iOS. Inspired by WP8.</p>
